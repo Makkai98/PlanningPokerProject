@@ -4,12 +4,12 @@ import java.util.ArrayList;
 
 public class Group {
 
-    private int id;
+    private String id;
     private boolean status;
     private ArrayList<Question> questions;
 
     public Group(){}
-    public Group(int id, boolean status, ArrayList<Question> questions) {
+    public Group(String id, boolean status, ArrayList<Question> questions) {
         this.id = id;
         this.status = status;
         this.questions = questions;
@@ -24,11 +24,11 @@ public class Group {
                 '}';
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

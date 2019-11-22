@@ -47,21 +47,27 @@ public class MainActivity extends AppCompatActivity {
         users.add(user2);
         Question question1 = new Question(1,"Rate this app!", true, users );
         Question question2 = new Question(2,"Do you like Java?", true, users );
+        Question question3 = new Question(3,"Answer this question?", true, users );
 
         ArrayList <Question> questions = new ArrayList<>();
         questions.add(question1);
         questions.add(question2);
+        questions.add(question3);
 
-
-        final String id = databaseReference.push().getKey();
-        String id2 = databaseReference.push().getKey();
-        Group group1 = new Group(1, true, questions);
+       // final String id = databaseReference.push().getKey();
+        //String id2 = databaseReference.push().getKey();
+        Group group1 = new Group("1", true, questions);
         Log.d("tag" , group1.toString());
 
-        Group group2 = new Group(2, false, questions);
+        Group group2 = new Group("2", false, questions);
+        Group group3 = new Group("3", false, questions);
+        Group group4 = new Group("4", true, questions);
 
-        databaseReference.child(id).setValue(group1);
-        databaseReference.child(id2).setValue(group2);
+
+        databaseReference.child(group1.getId()).setValue(group1);
+        databaseReference.child(group2.getId()).setValue(group2);
+        databaseReference.child(group3.getId()).setValue(group3);
+        databaseReference.child(group4.getId()).setValue(group4);
 
       /* databaseReference.addValueEventListener(new ValueEventListener() {
            @Override

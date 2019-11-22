@@ -7,23 +7,23 @@ public class Question {
 
     private int id;
     private String question;
-    private boolean stratus;
+    private boolean status;
     private LocalDateTime time;
     private ArrayList<User> users;
 
-    public Question(int id, String question, boolean stratus, LocalDateTime time, ArrayList<User> users) {
+    public Question(int id, String question, boolean status, LocalDateTime time, ArrayList<User> users) {
         this.id = id;
         this.question = question;
-        this.stratus = stratus;
+        this.status = status;
         this.time = time;
         this.users = users;
     }
     public Question(){}
 
-    public Question(int id, String question, boolean stratus, ArrayList<User> users) {
+    public Question(int id, String question, boolean status, ArrayList<User> users) {
         this.id = id;
         this.question = question;
-        this.stratus = stratus;
+        this.status = status;
         this.users = users;
     }
 
@@ -32,7 +32,7 @@ public class Question {
         return "Question{" +
                 "id=" + id +
                 ", question='" + question + '\'' +
-                ", stratus=" + stratus +
+                ", status=" + status +
                 ", time=" + time +
                 ", users=" + users +
                 '}';
@@ -54,12 +54,12 @@ public class Question {
         this.question = question;
     }
 
-    public boolean isStratus() {
-        return stratus;
+    public boolean isStatus() {
+        return status;
     }
 
-    public void setStratus(boolean stratus) {
-        this.stratus = stratus;
+    public void setStatus(boolean stratus) {
+        this.status = status;
     }
 
     public LocalDateTime getTime() {

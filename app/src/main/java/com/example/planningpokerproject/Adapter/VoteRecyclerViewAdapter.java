@@ -16,19 +16,26 @@ import com.example.planningpokerproject.R;
 
 public class VoteRecyclerViewAdapter extends RecyclerView.Adapter<com.example.planningpokerproject.Adapter.VoteRecyclerViewAdapter.ViewHolder>    {
 
+    private int pos;
 
     private String[] mData;
     private LayoutInflater mInflater;
 
     // data is passed into the constructor
-    public VoteRecyclerViewAdapter(   Context context, String[] data) {
+    public VoteRecyclerViewAdapter(   Context context, String[] data, int pos) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
+        this.pos = pos;
 
     }
 
+    public int getPos() {
+        return pos;
+    }
 
-
+    public void setPos(int pos) {
+        this.pos = pos;
+    }
 
     // inflates the cell layout from xml when needed
     @Override
@@ -67,10 +74,12 @@ public class VoteRecyclerViewAdapter extends RecyclerView.Adapter<com.example.pl
         public void onClick(View view)
         {
             // get the position on recyclerview.
-            int pos = getLayoutPosition();
+           pos = getLayoutPosition();
             Log.d("tag", getItem(pos));
 
+
         }
+
 
 
 
