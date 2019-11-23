@@ -4,29 +4,29 @@ import java.util.ArrayList;
 
 public class User {
 
-    private int id;
+    private String id;
     private String name;
     private String answer;
-    private ArrayList<Integer> groups;
+
 
     public User(){}
-    public User(int id, String name, String answer, ArrayList<Integer> groups) {
+    public User(String id, String name, String answer) {
         this.id = id;
         this.name = name;
         this.answer = answer;
-        this.groups = groups;
+
     }
 
-    public User(int id, String name) {
+    public User(String id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -46,13 +46,6 @@ public class User {
         this.answer = answer;
     }
 
-    public ArrayList<Integer> getGroups() {
-        return groups;
-    }
-
-    public void setGroups(ArrayList<Integer> groups) {
-        this.groups = groups;
-    }
 
     @Override
     public String toString() {
@@ -60,7 +53,6 @@ public class User {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", answer='" + answer + '\'' +
-                ", groups=" + groups +
                 '}';
     }
 }

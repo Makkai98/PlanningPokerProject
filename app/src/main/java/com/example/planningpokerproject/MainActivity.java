@@ -37,22 +37,23 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<Integer> groupId = new ArrayList<>();
         groupId.add(10);
 
-        User user1 = new User(1, "Matyas", "", groupId);
-        User user2 = new User(2, "Karcsi", "", groupId);
-        User user3 = new User (3, "Peter");
 
 
         ArrayList <User> users = new ArrayList<>();
-        users.add(user1);
-        users.add(user2);
-        Question question1 = new Question(1,"Rate this app!", true, users );
-        Question question2 = new Question(2,"Do you like Java?", true, users );
-        Question question3 = new Question(3,"Answer this question?", true, users );
+
+        //users.add(user2);
+        Question question1 = new Question(0,"Rate this app!", "active", users );
+        Question question2 = new Question(1,"Do you like Java?", "active", users );
+        Question question3 = new Question(2,"Answer this question?", "inactive", users );
+        Question question4 = new Question(3,"Next question?", "active", users );
+
+
 
         ArrayList <Question> questions = new ArrayList<>();
         questions.add(question1);
         questions.add(question2);
         questions.add(question3);
+        questions.add(question4);
 
        // final String id = databaseReference.push().getKey();
         //String id2 = databaseReference.push().getKey();
@@ -62,13 +63,14 @@ public class MainActivity extends AppCompatActivity {
         Group group2 = new Group("2", false, questions);
         Group group3 = new Group("3", false, questions);
         Group group4 = new Group("4", true, questions);
+        Group group5 = new Group("5", true, questions);
 
 
         databaseReference.child(group1.getId()).setValue(group1);
         databaseReference.child(group2.getId()).setValue(group2);
         databaseReference.child(group3.getId()).setValue(group3);
         databaseReference.child(group4.getId()).setValue(group4);
-
+        databaseReference.child(group5.getId()).setValue(group5);
       /* databaseReference.addValueEventListener(new ValueEventListener() {
            @Override
            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

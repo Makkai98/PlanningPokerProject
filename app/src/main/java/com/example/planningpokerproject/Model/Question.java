@@ -3,15 +3,15 @@ package com.example.planningpokerproject.Model;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class Question {
+public class Question  {
 
     private int id;
     private String question;
-    private boolean status;
+    private String status;
     private LocalDateTime time;
     private ArrayList<User> users;
 
-    public Question(int id, String question, boolean status, LocalDateTime time, ArrayList<User> users) {
+    public Question(int id, String question, String status, LocalDateTime time, ArrayList<User> users) {
         this.id = id;
         this.question = question;
         this.status = status;
@@ -20,7 +20,7 @@ public class Question {
     }
     public Question(){}
 
-    public Question(int id, String question, boolean status, ArrayList<User> users) {
+    public Question(int id, String question, String status, ArrayList<User> users) {
         this.id = id;
         this.question = question;
         this.status = status;
@@ -54,11 +54,11 @@ public class Question {
         this.question = question;
     }
 
-    public boolean isStatus() {
+    public String isStatus() {
         return status;
     }
 
-    public void setStatus(boolean stratus) {
+    public void setStatus(String status) {
         this.status = status;
     }
 

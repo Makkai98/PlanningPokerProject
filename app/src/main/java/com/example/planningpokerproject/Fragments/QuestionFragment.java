@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.planningpokerproject.Adapter.VoteRecyclerViewAdapter;
 import com.example.planningpokerproject.Model.Group;
 import com.example.planningpokerproject.Model.Question;
+import com.example.planningpokerproject.Model.User;
 import com.example.planningpokerproject.R;
 import com.example.planningpokerproject.R;
 import com.google.firebase.database.DataSnapshot;
@@ -31,7 +32,7 @@ public class QuestionFragment extends Fragment  {
 
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
-
+    static int position = 0;
 
     VoteRecyclerViewAdapter adapter;
     public QuestionFragment(){};
@@ -60,36 +61,53 @@ public class QuestionFragment extends Fragment  {
 
         Bundle bundle = this.getArguments();
         final String groupid = bundle.getString("groupid");
-        String name = bundle.getString("name");
+        final String name = bundle.getString("name");
 
         //Log.d("tags", groupid + " "+ name);
         TextView question_tv = view.findViewById(R.id.Question_textview);
         Button submit_button = view.findViewById(R.id.button_submitanswers);
-
-        setQuestion(submit_button,question_tv,groupid,0);
+        ArrayList <User> users = new ArrayList<>();
+        setQuestion(submit_button,question_tv,groupid, name, users);
 
 
 
         return  view;
     }
 
-    public void setQuestion (final Button b ,final TextView t, final String groupid, final int position)
+    public void setQuestion (final Button b ,final TextView t, final String groupid, final String name, final ArrayList <User> users )
     {
-        Question question;
+        final Question question;
         databaseReference.addValueEventListener(new ValueEventListener() {
            @Override
            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                Group g = dataSnapshot.child(groupid).getValue(Group.class);
-               ArrayList<Question> q1 = g.getQuestions();
 
-               if (position<q1.size()) {
-                   t.setText(q1.get(position).getQuestion());
-                   Log.d("question", g.getQuestions().toString());
+               final Question question = dataSnapshot.child(groupid).child("questions").child(String.valueOf(position)).getValue(Question.class);
+             final   ArrayList<Question> q1 = g.getQuestions();
+
+             final ArrayList<String> questionString = new ArrayList<String>();
+             for(Question q : q1)
+             {
+
+                     questionString.add(q.getQuestion());
+
+             }
+
+               if ((position<q1.size() ) && (question.isStatus().equals("active"))) {
+                       // Log.d("status", q1.get(position).isStatus());
+                       t.setText(question.getQuestion());
+                      // Log.d("question", q1.get(position).getQuestion());
+
                }
-
+               else
+               {
+                   position++;
+                   setQuestion(b, t,groupid, name, users);
+               }
                if (position>=q1.size())
                {
                    t.setText("All the questions were answered!");
+                   b.setText("Submit all Answers");
                }
 
                b.setOnClickListener(new View.OnClickListener() {
@@ -97,9 +115,14 @@ public class QuestionFragment extends Fragment  {
                    public void onClick(View v ) {
 
 
-
                        if (t.getText().toString().equals("All the questions were answered!")) {
-                           GroupListFragment Gfragment = new GroupListFragment();
+                           QuestionListFragment Gfragment = new QuestionListFragment();
+
+                           final Bundle bundle = new Bundle();
+                           bundle.putStringArrayList("questions", questionString);
+                           bundle.putString("groupid",groupid);
+                           Gfragment.setArguments(bundle);
+
                            FragmentTransaction fr = getFragmentManager().beginTransaction();
                            fr.replace(R.id.fragment_container, Gfragment);
                            fr.addToBackStack(null);
@@ -107,8 +130,19 @@ public class QuestionFragment extends Fragment  {
                        }
                        else
                        {
+
+                        String key = databaseReference.child(groupid).child("questions").child(String.valueOf(position)).child("users").push().getKey();
+                         User user = new User(key, name,  adapter.getItem(adapter.getPos()));
+                          // databaseReference.child(groupid).child("questions").child(Integer.toString(position)).child("users").child(key).setValue(user);
+
+                            users.add(user);
+                            question.setUsers(users);
+                            databaseReference.child(groupid).child("questions").child(String.valueOf(position)).setValue(question);
+                           Log.d ("questionpos", String.valueOf(position));
+                           Log.d("position", position + "");
                            Log.d("pos", adapter.getItem(adapter.getPos()));
-                           setQuestion(b, t,groupid,position+1);
+                           position++;
+                           setQuestion(b, t,groupid, name, users);
                        }
                    }
                });
