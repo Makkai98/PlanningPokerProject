@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         firebaseDatabase = firebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
 
+    /*
         ArrayList<Integer> groupId = new ArrayList<>();
         groupId.add(10);
 

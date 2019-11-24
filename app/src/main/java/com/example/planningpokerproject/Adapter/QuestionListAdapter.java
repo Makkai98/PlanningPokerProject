@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.planningpokerproject.Fragments.AnswerListFragment;
+import com.example.planningpokerproject.Interfaces.onClickInterface;
 import com.example.planningpokerproject.MainActivity;
 import com.example.planningpokerproject.Model.Question;
 import com.example.planningpokerproject.R;
@@ -27,11 +28,13 @@ public class QuestionListAdapter extends RecyclerView.Adapter<QuestionListAdapte
 
     private List<Question> questionList;
     private Context context;
+    onClickInterface onClickInterface;
 
 
-    public QuestionListAdapter(List<Question> questionList, Context context) {
+    public QuestionListAdapter(List<Question> questionList, Context context, onClickInterface onClickInterface) {
         this.questionList=questionList;
         this.context = context;
+        this.onClickInterface = onClickInterface;
     }
 
 
@@ -54,7 +57,7 @@ public class QuestionListAdapter extends RecyclerView.Adapter<QuestionListAdapte
             @Override
             public void onClick(View view) {
 
-
+                onClickInterface.setClick(position);
 
             }
 
@@ -74,7 +77,7 @@ public class QuestionListAdapter extends RecyclerView.Adapter<QuestionListAdapte
             super(itemView);
 
             this.textView = (TextView) itemView.findViewById(R.id.tv_question);
-            linearLayout =itemView.findViewById(R.id.linear_layout);
+            linearLayout =itemView.findViewById(R.id.linear_layout1);
         }
     }
 

@@ -66,15 +66,15 @@ public class QuestionFragment extends Fragment  {
         //Log.d("tags", groupid + " "+ name);
         TextView question_tv = view.findViewById(R.id.Question_textview);
         Button submit_button = view.findViewById(R.id.button_submitanswers);
-        ArrayList <User> users = new ArrayList<>();
-        setQuestion(submit_button,question_tv,groupid, name, users);
+
+        setQuestion(submit_button,question_tv,groupid, name);
 
 
 
         return  view;
     }
 
-    public void setQuestion (final Button b ,final TextView t, final String groupid, final String name, final ArrayList <User> users )
+    public void setQuestion (final Button b ,final TextView t, final String groupid, final String name )
     {
         final Question question;
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -84,7 +84,21 @@ public class QuestionFragment extends Fragment  {
 
                final Question question = dataSnapshot.child(groupid).child("questions").child(String.valueOf(position)).getValue(Question.class);
              final   ArrayList<Question> q1 = g.getQuestions();
+               final ArrayList<User> users;
 
+               if (position<q1.size()) {
+
+
+                   if (q1.get(position).getUsers() == null) {
+                       users = new ArrayList<>();
+                   } else {
+                       users = question.getUsers();
+                   }
+               }
+               else
+               {
+                   users = new ArrayList<>();
+               }
              final ArrayList<String> questionString = new ArrayList<String>();
              for(Question q : q1)
              {
@@ -102,12 +116,13 @@ public class QuestionFragment extends Fragment  {
                else
                {
                    position++;
-                   setQuestion(b, t,groupid, name, users);
+                   setQuestion(b, t,groupid, name);
                }
                if (position>=q1.size())
                {
                    t.setText("All the questions were answered!");
                    b.setText("Submit all Answers");
+
                }
 
                b.setOnClickListener(new View.OnClickListener() {
@@ -142,7 +157,7 @@ public class QuestionFragment extends Fragment  {
                            Log.d("position", position + "");
                            Log.d("pos", adapter.getItem(adapter.getPos()));
                            position++;
-                           setQuestion(b, t,groupid, name, users);
+                           setQuestion(b, t,groupid, name);
                        }
                    }
                });
