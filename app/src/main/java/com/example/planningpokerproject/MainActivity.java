@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         firebaseDatabase = firebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
 
+
     /*
         ArrayList<Integer> groupId = new ArrayList<>();
         groupId.add(10);
@@ -84,7 +85,6 @@ public class MainActivity extends AppCompatActivity {
                   Log.d("Question",q.getQuestion());
                }
            }
-
            @Override
            public void onCancelled(@NonNull DatabaseError databaseError) {
 

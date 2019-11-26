@@ -72,23 +72,25 @@ public class QuestionListFragment extends Fragment {
                         AnswerListFragment Afragment = new AnswerListFragment();
 
                         final Bundle bundle = new Bundle();
-                        ArrayList <User> users = q1.get(pos).getUsers();
-                        ArrayList <String> userAnswers = new ArrayList<>();
+                        if (q1.get(pos).getUsers()!=null) {
+                            ArrayList<User> users = q1.get(pos).getUsers();
+                            ArrayList<String> userAnswers = new ArrayList<>();
 
-                        for (User u : users)
-                        {
-                            String value = u.getName() +": " + u.getAnswer();
-                            userAnswers.add(value);
+                            for (User u : users) {
+                                String value = u.getName() + ": " + u.getAnswer();
+                                userAnswers.add(value);
+                            }
+                            bundle.putStringArrayList("answers", userAnswers);
+
                         }
-                        bundle.putStringArrayList("answers", userAnswers);
-
-
+                        else
+                        {
+                            ArrayList<String> userAnswers = new ArrayList<>();
+                            bundle.putStringArrayList("answers", userAnswers);
+                        }
                         Afragment.setArguments(bundle);
 
-                        FragmentTransaction fr = getFragmentManager().beginTransaction();
-                        fr.replace(R.id.fragment_container, Afragment);
-                        fr.addToBackStack(null);
-                        fr.commit();
+                        Fragmentchange(Afragment);
 
                     }
                 };
@@ -116,4 +118,14 @@ public class QuestionListFragment extends Fragment {
 
         return  view;
     }
+
+    public void Fragmentchange (Fragment fragment)
+    {
+
+        FragmentTransaction fr = getFragmentManager().beginTransaction();
+        fr.replace(R.id.fragment_container, fragment);
+        fr.addToBackStack(null);
+        fr.commit();
+    }
 }
+

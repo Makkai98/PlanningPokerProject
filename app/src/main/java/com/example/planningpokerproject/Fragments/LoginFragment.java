@@ -22,6 +22,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class LoginFragment extends Fragment {
 
 
@@ -80,7 +82,10 @@ public class LoginFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
+
                 Group g = dataSnapshot.child(groupid).getValue(Group.class);
+
+
                 if (g.isStatus()==true) {
                     final Bundle bundle = new Bundle();
                     bundle.putString("name", name);
@@ -88,10 +93,7 @@ public class LoginFragment extends Fragment {
 
                     QuestionFragment Qfragment = new QuestionFragment();
                     Qfragment.setArguments(bundle);
-                    FragmentTransaction fr = getFragmentManager().beginTransaction();
-                    fr.replace(R.id.fragment_container, Qfragment);
-                    fr.addToBackStack(null);
-                    fr.commit();
+                    Fragmentchange(Qfragment);
                 }
                 else {
                     Toast.makeText(getContext(), "Group is not active!", Toast.LENGTH_SHORT).show();
@@ -105,5 +107,14 @@ public class LoginFragment extends Fragment {
             }
         });
 
+    }
+
+    public void Fragmentchange (Fragment fragment)
+    {
+
+        FragmentTransaction fr = getFragmentManager().beginTransaction();
+        fr.replace(R.id.fragment_container, fragment);
+        fr.addToBackStack(null);
+        fr.commit();
     }
 }

@@ -138,10 +138,7 @@ public class QuestionFragment extends Fragment  {
                            bundle.putString("groupid",groupid);
                            Gfragment.setArguments(bundle);
 
-                           FragmentTransaction fr = getFragmentManager().beginTransaction();
-                           fr.replace(R.id.fragment_container, Gfragment);
-                           fr.addToBackStack(null);
-                           fr.commit();
+                           Fragmentchange(Gfragment);
                        }
                        else
                        {
@@ -172,7 +169,14 @@ public class QuestionFragment extends Fragment  {
 
 
     }
+    public void Fragmentchange (Fragment fragment)
+    {
 
+        FragmentTransaction fr = getFragmentManager().beginTransaction();
+        fr.replace(R.id.fragment_container, fragment);
+        fr.addToBackStack(null);
+        fr.commit();
+    }
 
 
 
