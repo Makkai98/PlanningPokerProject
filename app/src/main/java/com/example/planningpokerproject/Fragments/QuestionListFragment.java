@@ -63,6 +63,7 @@ public class QuestionListFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Group g = dataSnapshot.child(groupid).getValue(Group.class);
+
                 final ArrayList<Question> q1 = g.getQuestions();
 
                 onclickInterface = new onClickInterface() {
